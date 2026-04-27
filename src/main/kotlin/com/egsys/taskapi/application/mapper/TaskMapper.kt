@@ -9,25 +9,25 @@ import java.time.format.DateTimeFormatter
 
 /**
  * Responsável por converter entidades de domínio em DTOs de resposta.
- * Centraliza a lógica de mapeamento, mantendo as camadas desacopladas.
+ * Usa o padrão de Extension Functions para um código mais idiomático em Kotlin.
  */
 @Component
 class TaskMapper {
 
     private val formatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
-    fun toResponse(category: Category): CategoryResponse =
+    fun Category.toResponse(): CategoryResponse =
         CategoryResponse(
-            id = category.id,
-            description = category.description
+            id = this.id,
+            description = this.description
         )
 
-    fun toResponse(task: Task): TaskResponse =
+    fun Task.toResponse(): TaskResponse =
         TaskResponse(
-            id = task.id,
-            title = task.title,
-            description = task.description,
-            category = toResponse(task.category),
-            dateTime = task.dateTime.format(formatter)
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            category = this.category.toResponse(),
+            dateTime = this.dateTime.format(formatter)
         )
 }
