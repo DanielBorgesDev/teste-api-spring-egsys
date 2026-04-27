@@ -24,13 +24,17 @@ class CategoryService(
 
     fun findAll(): List<CategoryResponse> {
         log.debug("Buscando todas as categorias")
-        return categoryRepository.findAll().map { mapper.toResponse(it) }
+        return with(mapper) {
+            categoryRepository.findAll().map { it.toResponse() }
+        }
     }
 
     fun findById(id: Long): CategoryResponse {
         log.debug("Buscando categoria id=$id")
         val category = findCategoryOrThrow(id)
-        return mapper.toResponse(category)
+        return with(mapper) {
+            category.toResponse()
+        }
     }
 
     @Transactional
@@ -40,18 +44,27 @@ class CategoryService(
             throw ResourceAlreadyExistsException("Categoria '$description' já existe")
         }
         val saved = categoryRepository.save(Category(description = description))
-        return mapper.toResponse(saved)
+        return with(mapper) {
+            saved.toResponse()
+        }
     }
 
     @Transactional
     fun update(id: Long, description: String): CategoryResponse {
         log.debug("Atualizando categoria id=$id")
         val category = findCategoryOrThrow(id)
-        if (categoryRepository.existsByDescriptionIgnoreCase(description) && !category.description.equals(description, ignoreCase = true)) {
+        
+        val isDuplicate = categoryRepository.existsByDescriptionIgnoreCase(description) && 
+                         !category.description.equals(description, ignoreCase = true)
+        
+        if (isDuplicate) {
             throw ResourceAlreadyExistsException("Categoria '$description' já existe")
         }
+        
         val updated = categoryRepository.save(category.copy(description = description))
-        return mapper.toResponse(updated)
+        return with(mapper) {
+            updated.toResponse()
+        }
     }
 
     @Transactional
