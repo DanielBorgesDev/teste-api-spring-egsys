@@ -1,0 +1,17 @@
+target/
+build/
+.gradle/
+.vscode/
+.idea/
+*.class
+*.log
+*.jar
+*.war
+*.zip
+*.tar.gz
+*.rar
+bin/
+
+# OS metadata
+.DS_Store
+Thumbs.db
