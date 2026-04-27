@@ -1,7 +1,6 @@
 # Task API - EGSys
 
-Uma API RESTful robusta desenvolvida em Kotlin e Spring Boot para gerenciamento de tarefas e categorias.
-
+Projeto teste tem o objetivo de avaliar  nível de conhecimento sobre o desenvolvimento de API utilizando Kotlin e Spring Boot
 ## Tecnologias Utilizadas
 
 - **Linguagem:** [Kotlin](https://kotlinlang.org/) 1.9.25
@@ -84,5 +83,4 @@ Para visualizar o banco de dados em tempo real:
 - **User:** `sa`
 - **Password:** (em branco)
 
----
-Desenvolvido por [Daniel](https://github.com/DanielBorgesDev)
+
