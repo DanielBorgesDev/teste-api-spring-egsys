@@ -1,19 +1,15 @@
 package com.egsys.taskapi.api.controller
 
+import com.egsys.taskapi.application.dto.CategoryRequest
 import com.egsys.taskapi.application.dto.CategoryResponse
 import com.egsys.taskapi.application.service.CategoryService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 /**
  * Expõe os endpoints REST para gerenciamento de categorias.
- *
- * GET    /api/categories          — lista todas
- * GET    /api/categories/{id}     — busca por id
- * POST   /api/categories          — cria nova
- * PUT    /api/categories/{id}     — atualiza
- * DELETE /api/categories/{id}     — remove
  */
 @RestController
 @RequestMapping("/api/categories")
@@ -28,22 +24,18 @@ class CategoryController(private val categoryService: CategoryService) {
         ResponseEntity.ok(categoryService.findById(id))
 
     @PostMapping
-    fun create(@RequestBody body: Map<String, String>): ResponseEntity<CategoryResponse> {
-        val description = body["description"]?.trim()
-            ?: return ResponseEntity.badRequest().build()
+    fun create(@RequestBody @Valid request: CategoryRequest): ResponseEntity<CategoryResponse> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(categoryService.create(description))
+            .body(categoryService.create(request.description))
     }
 
     @PutMapping("/{id}")
     fun update(
         @PathVariable id: Long,
-        @RequestBody body: Map<String, String>
+        @RequestBody @Valid request: CategoryRequest
     ): ResponseEntity<CategoryResponse> {
-        val description = body["description"]?.trim()
-            ?: return ResponseEntity.badRequest().build()
-        return ResponseEntity.ok(categoryService.update(id, description))
+        return ResponseEntity.ok(categoryService.update(id, request.description))
     }
 
     @DeleteMapping("/{id}")
