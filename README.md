@@ -4,23 +4,29 @@ Projeto teste com o objetivo de avaliar o nível de conhecimento sobre o desenvo
 
 ## Tecnologias Utilizadas
 
-- **Linguagem:** [Kotlin](https://kotlinlang.org/) 1.9.25
-- **Framework:** [Spring Boot](https://spring.io/projects/spring-boot) 3.3.5
-- **Gerenciador de Dependências:** [Maven](https://maven.apache.org/)
-- **Banco de Dados:** [H2 Database](https://www.h2database.com/) (In-memory)
+- **Linguagem:** Kotlin 1.9.25
+- **Framework:** Spring Boot 3.3.5
+- **Gerenciador de Dependências:** Maven
+- **Banco de Dados:** H2 Database (In-memory)
 - **Persistência:** Spring Data JPA / Hibernate
 - **Segurança:** Spring Security + JWT (jjwt 0.12.6)
 - **Validação:** Bean Validation (Hibernate Validator)
 - **Testes:** JUnit 5, MockK, Spring MockMvc
 
+## 🌟 Destaques Técnicos (Para Avaliação)
+
+- **Documentação Interativa (Swagger UI):** Interface gráfica gerada automaticamente (OpenAPI) para explorar e testar todos os endpoints da API de forma intuitiva.
+- **Segurança Robusta (Spring Security + JWT):** Sistema de autenticação stateless com tokens Bearer, protegendo as rotas sensíveis e extraindo o perfil do usuário logado através do contexto de segurança.
+- **Tratamento de Erros Global:** Utilização de `@RestControllerAdvice` e `ExceptionHandler` para capturar exceções e padronizar as respostas de erro HTTP (ex: 404 Not Found, 409 Conflict, 422 Unprocessable Entity).
+- **Data Seeding Inteligente:** População automática do banco de dados na inicialização (`ApplicationRunner`), inserindo um usuário Admin, categorias predefinidas e tarefas, garantindo que a aplicação esteja pronta para testes imediatamente.
+- **Arquitetura em Camadas:** Separação clara de responsabilidades (Controllers, Services, Repositories) com utilização de DTOs e Mappers para não expor as entidades de domínio diretamente nas respostas da API.
+- **Validações Consistentes:** Uso de Bean Validation (Hibernate Validator) para garantir a integridade dos dados na entrada das requisições (ex: obrigatoriedade de campos, limites de caracteres e formato de e-mail).
+
 ## Funcionalidades
 
-- **Autenticação JWT:** Registro e login de usuários com token Bearer stateless.
-- **Gerenciamento de Categorias:** CRUD completo para organizar tarefas.
-- **Gerenciamento de Tarefas:** Criação, edição, remoção e listagem de tarefas vinculadas a categorias.
-- **Filtros Avançados:** Busca de tarefas por categoria específica.
-- **Seed de Dados:** Banco de dados populado automaticamente ao iniciar (usuário admin + categorias + tarefas).
-- **Tratamento de Erros:** Respostas padronizadas para recursos não encontrados, duplicados ou inválidos.
+- **Autenticação:** Registro, login de usuários e consulta de dados do perfil (`/api/auth/me`).
+- **Gerenciamento de Categorias:** CRUD completo de categorias de tarefas.
+- **Gerenciamento de Tarefas:** CRUD de tarefas com relacionamento com categorias e filtro por ID da categoria.
 
 ## Como Executar
 
@@ -91,7 +97,7 @@ Authorization: Bearer <seu_token_jwt>
 
 ## Endpoints da API
 
-> ⚠️ Todos os endpoints abaixo requerem o header `Authorization: Bearer <token>`.
+>  Todos os endpoints abaixo requerem o header `Authorization: Bearer <token>`.
 
 ### Categorias (`/api/categories`)
 | Método | Endpoint | Descrição |
@@ -121,6 +127,18 @@ Authorization: Bearer <seu_token_jwt>
   "dateTime": "2026-04-28T10:00:00"
 }
 ```
+
+##  Documentação Interativa (Swagger UI)
+
+A API possui uma documentação interativa integrada, o que facilita imensamente o teste de todas as rotas sem a necessidade de ferramentas externas.
+
+1. Inicie a aplicação.
+2. Acesse no navegador: `http://localhost:8080/swagger-ui.html`
+3. Como testar rotas protegidas pelo Swagger:
+   - Expanda a seção **Auth** e use o endpoint `POST /api/auth/login` com as credenciais padrão (admin@egsys.com / admin123).
+   - Copie o token retornado na resposta.
+   - Suba até o topo da página, clique no botão verde **Authorize**.
+   - Cole o token no campo de texto e clique em "Authorize". Agora você pode testar qualquer rota protegida!
 
 ## Testando com o Postman
 
