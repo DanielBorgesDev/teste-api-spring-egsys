@@ -7,10 +7,7 @@ import com.egsys.taskapi.domain.model.Task
 import org.springframework.stereotype.Component
 import java.time.format.DateTimeFormatter
 
-/**
- * Responsável por converter entidades de domínio em DTOs de resposta.
- * Usa o padrão de Extension Functions para um código mais idiomático em Kotlin.
- */
+
 @Component
 class TaskMapper {
 

@@ -2,10 +2,7 @@ package com.egsys.taskapi.domain.model
 
 import jakarta.persistence.*
 
-/**
- * Representa uma categoria de tarefa.
- * Exemplos: Casa, Trabalho, Saúde, Estudos, Lazer, Financeiro.
- */
+
 @Entity
 @Table(name = "categories")
 data class Category(

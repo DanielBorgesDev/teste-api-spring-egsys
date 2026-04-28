@@ -9,9 +9,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-/**
- * Expõe os endpoints REST para gerenciamento de categorias.
- */
+
 @RestController
 @RequestMapping("/api/categories")
 @SecurityRequirement(name = "bearerAuth")

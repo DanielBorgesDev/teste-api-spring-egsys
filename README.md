@@ -13,7 +13,7 @@ Projeto teste com o objetivo de avaliar o nível de conhecimento sobre o desenvo
 - **Validação:** Bean Validation (Hibernate Validator)
 - **Testes:** JUnit 5, MockK, Spring MockMvc
 
-## 🌟 Destaques Técnicos (Para Avaliação)
+##  Destaques Técnicos (Para Avaliação)
 
 - **Documentação Interativa (Swagger UI):** Interface gráfica gerada automaticamente (OpenAPI) para explorar e testar todos os endpoints da API de forma intuitiva.
 - **Segurança Robusta (Spring Security + JWT):** Sistema de autenticação stateless com tokens Bearer, protegendo as rotas sensíveis e extraindo o perfil do usuário logado através do contexto de segurança.

@@ -21,14 +21,11 @@ class CategoryServiceTest {
 
     @Test
     fun `findAll should return list of categories`() {
-        // Given
         val categories = listOf(Category(1, "Trabalho"), Category(2, "Casa"))
         every { repository.findAll() } returns categories
 
-        // When
         val result = service.findAll()
 
-        // Then
         assertEquals(2, result.size)
         assertEquals("Trabalho", result[0].description)
         verify { repository.findAll() }
@@ -36,11 +33,9 @@ class CategoryServiceTest {
 
     @Test
     fun `create should throw exception when category already exists`() {
-        // Given
         val description = "Casa"
         every { repository.existsByDescriptionIgnoreCase(description) } returns true
 
-        // When & Then
         assertThrows<ResourceAlreadyExistsException> {
             service.create(description)
         }
@@ -48,10 +43,8 @@ class CategoryServiceTest {
 
     @Test
     fun `findById should throw exception when category not found`() {
-        // Given
         every { repository.findById(99) } returns Optional.empty()
 
-        // When & Then
         assertThrows<ResourceNotFoundException> {
             service.findById(99)
         }

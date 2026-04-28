@@ -10,9 +10,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-/**
- * Contém a lógica de negócio relacionada a categorias de tarefa.
- */
+
 @Service
 @Transactional(readOnly = true)
 class CategoryService(

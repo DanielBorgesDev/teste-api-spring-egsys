@@ -8,7 +8,6 @@ class TaskApiApplicationTests {
 
     @Test
     fun contextLoads() {
-        // Testa se o contexto do Spring sobe corretamente
     }
 
 }

@@ -9,16 +9,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-/**
- * Expõe os endpoints REST para o CRUD de tarefas.
- *
- * GET    /api/tasks               — lista todas as tarefas
- * GET    /api/tasks/{id}          — busca tarefa por id
- * GET    /api/tasks?categoryId=X  — filtra por categoria
- * POST   /api/tasks               — cria tarefa
- * PUT    /api/tasks/{id}          — atualiza tarefa
- * DELETE /api/tasks/{id}          — remove tarefa
- */
+
 @RestController
 @RequestMapping("/api/tasks")
 @SecurityRequirement(name = "bearerAuth")

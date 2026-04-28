@@ -10,10 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
-/**
- * Filtro que intercepta cada requisição HTTP, extrai e valida o token JWT
- * e popula o SecurityContext se o token for válido.
- */
+
 @Component
 class JwtAuthenticationFilter(
     private val jwtService: JwtService,

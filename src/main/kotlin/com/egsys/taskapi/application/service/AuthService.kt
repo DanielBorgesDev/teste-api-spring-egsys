@@ -14,9 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
-/**
- * Contém a lógica de negócio para registro e autenticação de usuários.
- */
+
 @Service
 class AuthService(
     private val userRepository: UserRepository,

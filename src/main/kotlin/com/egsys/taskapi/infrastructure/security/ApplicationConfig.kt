@@ -12,10 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 
-/**
- * Configuração dos beans de suporte à autenticação, separada da SecurityConfig
- * para evitar dependências circulares.
- */
+
 @Configuration
 class ApplicationConfig(private val userRepository: UserRepository) {
 

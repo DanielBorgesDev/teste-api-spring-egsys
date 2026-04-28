@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service
 import java.util.Date
 import javax.crypto.SecretKey
 
-/**
- * Responsável por geração, validação e extração de claims de tokens JWT.
- */
+
 @Service
 class JwtService {
 

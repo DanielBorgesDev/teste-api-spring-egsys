@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.info.Info
 import io.swagger.v3.oas.annotations.security.SecurityScheme
 import org.springframework.context.annotation.Configuration
 
-/**
- * Configura a documentação OpenAPI (Swagger UI) com suporte a autenticação JWT.
- * Acesse: http://localhost:8080/swagger-ui.html
- */
+
 @Configuration
 @OpenAPIDefinition(
     info = Info(

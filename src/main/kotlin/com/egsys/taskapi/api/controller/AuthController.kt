@@ -19,13 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-/**
- * Expõe os endpoints de autenticação.
- *
- * POST /api/auth/register — cadastro de novo usuário
- * POST /api/auth/login    — autenticação e geração de token JWT
- * GET  /api/auth/me       — dados do usuário logado
- */
+
 @RestController
 @RequestMapping("/api/auth")
 @Tag(name = "Auth", description = "Registro, login e perfil do usuário autenticado")

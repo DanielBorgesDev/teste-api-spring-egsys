@@ -9,10 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
-/**
- * Configuração principal do Spring Security.
- * Define quais rotas são públicas e protege as demais com JWT stateless.
- */
+
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
@@ -24,7 +21,7 @@ class SecurityConfig(
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
             .csrf { it.disable() }
-            .headers { it.frameOptions { frame -> frame.disable() } } // necessário para H2 Console
+            .headers { it.frameOptions { frame -> frame.disable() } }
             .authorizeHttpRequests { auth ->
                 auth.requestMatchers(
                     "/api/auth/**",

@@ -60,7 +60,7 @@ class TaskControllerIT {
         val request = TaskRequest(
             title = "Nova Tarefa",
             description = "Teste de Integração",
-            categoryId = 999, // Inexistente
+            categoryId = 999,
             dateTime = "2026-04-28T10:00:00"
         )
 
@@ -69,7 +69,7 @@ class TaskControllerIT {
             content = objectMapper.writeValueAsString(request)
         }
             .andExpect {
-                status { isNotFound() } // Nosso GlobalExceptionHandler mapeia ResourceNotFoundException para 404
+                status { isNotFound() }
             }
     }
 }

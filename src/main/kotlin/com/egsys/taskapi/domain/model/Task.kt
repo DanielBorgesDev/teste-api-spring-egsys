@@ -3,9 +3,7 @@ package com.egsys.taskapi.domain.model
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
-/**
- * Representa uma tarefa do usuário.
- */
+
 @Entity
 @Table(name = "tasks")
 data class Task(

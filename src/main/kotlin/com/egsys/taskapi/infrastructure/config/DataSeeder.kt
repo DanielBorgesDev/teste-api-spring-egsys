@@ -14,10 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
-/**
- * Popula o banco de dados com dados iniciais ao iniciar a aplicação.
- * Facilita testes manuais sem necessidade de scripts SQL externos.
- */
+
 @Component
 class DataSeeder(
     private val categoryRepository: CategoryRepository,

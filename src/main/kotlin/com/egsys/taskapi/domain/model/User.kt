@@ -5,10 +5,7 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-/**
- * Entidade que representa um usuário autenticado na aplicação.
- * Implementa UserDetails para integração com Spring Security.
- */
+
 @Entity
 @Table(name = "users")
 class User(

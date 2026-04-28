@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import java.time.LocalDateTime
 
-/**
- * Intercepta exceções lançadas pelos controllers e retorna respostas HTTP padronizadas.
- */
+
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
