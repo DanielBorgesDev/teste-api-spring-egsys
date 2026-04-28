@@ -56,6 +56,14 @@ class GlobalExceptionHandler {
             .body(ErrorResponse(status = 422, error = "Unprocessable Entity", message = errors))
     }
 
+    @ExceptionHandler(org.springframework.data.mapping.PropertyReferenceException::class)
+    fun handlePropertyReference(ex: org.springframework.data.mapping.PropertyReferenceException): ResponseEntity<ErrorResponse> {
+        log.warn("Invalid sort property: ${ex.message}")
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ErrorResponse(status = 400, error = "Bad Request", message = "O campo de ordenação '${ex.propertyName}' não existe"))
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleGeneric(ex: Exception): ResponseEntity<ErrorResponse> {
         log.error("Unexpected error", ex)

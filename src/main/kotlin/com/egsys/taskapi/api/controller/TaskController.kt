@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -22,7 +23,7 @@ class TaskController(private val taskService: TaskService) {
     @GetMapping
     fun listAll(
         @RequestParam(required = false) categoryId: Long?,
-        @PageableDefault(size = 10, sort = ["dateTime"]) pageable: Pageable
+        @ParameterObject @PageableDefault(size = 10, sort = ["dateTime"]) pageable: Pageable
     ): ResponseEntity<Page<TaskResponse>> {
         return ResponseEntity.ok(taskService.findAll(categoryId, pageable))
     }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
@@ -21,7 +22,7 @@ class CategoryController(private val categoryService: CategoryService) {
 
     @GetMapping
     fun listAll(
-        @PageableDefault(size = 10, sort = ["description"]) pageable: Pageable
+        @ParameterObject @PageableDefault(size = 10, sort = ["description"]) pageable: Pageable
     ): ResponseEntity<Page<CategoryResponse>> =
         ResponseEntity.ok(categoryService.findAll(pageable))
 
