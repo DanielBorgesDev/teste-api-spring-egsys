@@ -61,10 +61,14 @@ Projeto teste tem o objetivo de avaliar  nível de conhecimento sobre o desenvol
 | PUT | `/api/tasks/{id}` | Atualiza uma tarefa existente |
 | DELETE | `/api/tasks/{id}` | Remove uma tarefa |
 
-## Testando a API
-
 ### Postman / Insomnia
-Você pode utilizar o Postman para disparar as requisições. Para os métodos `POST` e `PUT`, utilize o corpo (Body) em formato `JSON`.
+Uma coleção do Postman foi incluída no repositório para facilitar os testes.
+1. Localize o arquivo `postman/TaskAPI_Collection.json`.
+2. No Postman, clique em **Import** e selecione este arquivo.
+3. A coleção já vem configurada com uma variável `baseUrl` apontando para `http://localhost:8080`.
+
+Para os métodos `POST` e `PUT`, utilize o corpo (Body) em formato `JSON`.
+
 
 **Exemplo de criação de Tarefa (POST):**
 ```json

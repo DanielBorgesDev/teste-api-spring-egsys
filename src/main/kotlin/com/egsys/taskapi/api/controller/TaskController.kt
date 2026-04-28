@@ -26,12 +26,7 @@ class TaskController(private val taskService: TaskService) {
     fun listAll(
         @RequestParam(required = false) categoryId: Long?
     ): ResponseEntity<List<TaskResponse>> {
-        val tasks = if (categoryId != null) {
-            taskService.findByCategoryId(categoryId)
-        } else {
-            taskService.findAll()
-        }
-        return ResponseEntity.ok(tasks)
+        return ResponseEntity.ok(taskService.findAll(categoryId))
     }
 
     @GetMapping("/{id}")
