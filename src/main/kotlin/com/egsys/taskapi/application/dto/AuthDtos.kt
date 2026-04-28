@@ -43,3 +43,12 @@ data class AuthResponse(
     val name: String,
     val role: String
 )
+
+/**
+ * DTO de resposta para o perfil do usuário (não inclui o token).
+ */
+data class UserProfileResponse(
+    val email: String,
+    val name: String,
+    val role: String
+)
