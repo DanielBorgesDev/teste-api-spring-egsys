@@ -55,7 +55,8 @@ class TaskService(
             title = request.title,
             description = request.description,
             category = category,
-            dateTime = LocalDateTime.parse(request.dateTime)
+            dateTime = LocalDateTime.parse(request.dateTime),
+            status = request.status ?: com.egsys.taskapi.domain.model.TaskStatus.PENDING
         )
         
         val saved = taskRepository.save(task)
@@ -74,7 +75,8 @@ class TaskService(
             title = request.title,
             description = request.description,
             category = category,
-            dateTime = LocalDateTime.parse(request.dateTime)
+            dateTime = LocalDateTime.parse(request.dateTime),
+            status = request.status ?: task.status
         )
         
         val saved = taskRepository.save(updatedTask)

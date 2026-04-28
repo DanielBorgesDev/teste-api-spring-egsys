@@ -7,6 +7,7 @@ import com.egsys.taskapi.domain.model.User
 import com.egsys.taskapi.domain.repository.CategoryRepository
 import com.egsys.taskapi.domain.repository.TaskRepository
 import com.egsys.taskapi.domain.repository.UserRepository
+import com.egsys.taskapi.domain.model.TaskStatus
 import org.slf4j.LoggerFactory
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
@@ -45,6 +46,7 @@ class DataSeeder(
     }
 
     private fun seedCategories() {
+        if (categoryRepository.count() > 0) return
 
         val categories = categoryRepository.saveAll(
             listOf(
@@ -70,18 +72,21 @@ class DataSeeder(
                     title = "Limpar a casa",
                     description = "Varrer, passar pano e organizar os quartos",
                     category = casa,
-                    dateTime = LocalDateTime.now().plusDays(1)
+                    dateTime = LocalDateTime.now().plusDays(1),
+                    status = TaskStatus.DONE
                 ),
                 Task(
                     title = "Fazer compras no mercado",
                     category = casa,
-                    dateTime = LocalDateTime.now().plusDays(2)
+                    dateTime = LocalDateTime.now().plusDays(2),
+                    status = TaskStatus.PENDING
                 ),
                 Task(
                     title = "Reunião de planejamento",
                     description = "Alinhamento de sprint com o time",
                     category = trabalho,
-                    dateTime = LocalDateTime.now().plusHours(3)
+                    dateTime = LocalDateTime.now().plusHours(3),
+                    status = TaskStatus.IN_PROGRESS
                 ),
                 Task(
                     title = "Entregar relatório mensal",

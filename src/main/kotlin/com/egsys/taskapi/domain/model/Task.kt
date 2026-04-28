@@ -23,5 +23,9 @@ data class Task(
     val category: Category,
 
     @Column(name = "date_time", nullable = false)
-    val dateTime: LocalDateTime
+    val dateTime: LocalDateTime,
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 30)
+    val status: TaskStatus = TaskStatus.PENDING
 )

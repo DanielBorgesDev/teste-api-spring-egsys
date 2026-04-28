@@ -25,6 +25,7 @@ class TaskMapper {
             title = this.title,
             description = this.description,
             category = this.category.toResponse(),
-            dateTime = this.dateTime.format(formatter)
+            dateTime = this.dateTime.format(formatter),
+            status = this.status.name
         )
 }

@@ -15,5 +15,7 @@ data class TaskRequest(
 
     val categoryId: Long,
 
-    val dateTime: String
+    val dateTime: String,
+
+    val status: com.egsys.taskapi.domain.model.TaskStatus? = null
 )
