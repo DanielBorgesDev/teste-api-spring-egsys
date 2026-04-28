@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+
 @Service
 @Transactional(readOnly = true)
 class TaskService(
@@ -22,12 +25,12 @@ class TaskService(
 
     private val log = LoggerFactory.getLogger(TaskService::class.java)
 
-    fun findAll(categoryId: Long?): List<TaskResponse> {
+    fun findAll(categoryId: Long?, pageable: Pageable): Page<TaskResponse> {
         log.debug("Buscando tarefas. Filtro categoryId=$categoryId")
         val tasks = if (categoryId != null) {
-            taskRepository.findByCategoryId(categoryId)
+            taskRepository.findByCategoryId(categoryId, pageable)
         } else {
-            taskRepository.findAll()
+            taskRepository.findAll(pageable)
         }
         
         return with(mapper) {

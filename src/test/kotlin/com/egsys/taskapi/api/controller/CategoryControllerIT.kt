@@ -31,7 +31,7 @@ class CategoryControllerIT {
         mockMvc.get("/api/categories")
             .andExpect {
                 status { isOk() }
-                jsonPath("$[0].description") { value("Casa") }
+                jsonPath("$.content[0].description") { value("Casa") }
             }
     }
 

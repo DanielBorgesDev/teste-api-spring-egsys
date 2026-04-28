@@ -22,13 +22,15 @@ class CategoryServiceTest {
     @Test
     fun `findAll should return list of categories`() {
         val categories = listOf(Category(1, "Trabalho"), Category(2, "Casa"))
-        every { repository.findAll() } returns categories
+        val pageable = org.springframework.data.domain.Pageable.unpaged()
+        val page = org.springframework.data.domain.PageImpl(categories)
+        every { repository.findAll(pageable) } returns page
 
-        val result = service.findAll()
+        val result = service.findAll(pageable)
 
-        assertEquals(2, result.size)
-        assertEquals("Trabalho", result[0].description)
-        verify { repository.findAll() }
+        assertEquals(2, result.totalElements)
+        assertEquals("Trabalho", result.content[0].description)
+        verify { repository.findAll(pageable) }
     }
 
     @Test

@@ -31,7 +31,7 @@ class TaskControllerIT {
         mockMvc.get("/api/tasks")
             .andExpect {
                 status { isOk() }
-                jsonPath("$[0].title") { exists() }
+                jsonPath("$.content[0].title") { exists() }
             }
     }
 

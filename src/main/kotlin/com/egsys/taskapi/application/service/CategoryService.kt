@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+
 @Service
 @Transactional(readOnly = true)
 class CategoryService(
@@ -20,10 +23,10 @@ class CategoryService(
 
     private val log = LoggerFactory.getLogger(CategoryService::class.java)
 
-    fun findAll(): List<CategoryResponse> {
+    fun findAll(pageable: Pageable): Page<CategoryResponse> {
         log.debug("Buscando todas as categorias")
         return with(mapper) {
-            categoryRepository.findAll().map { it.toResponse() }
+            categoryRepository.findAll(pageable).map { it.toResponse() }
         }
     }
 

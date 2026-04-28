@@ -10,14 +10,20 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
+
 @RestController
 @RequestMapping("/api/categories")
 @SecurityRequirement(name = "bearerAuth")
 class CategoryController(private val categoryService: CategoryService) {
 
     @GetMapping
-    fun listAll(): ResponseEntity<List<CategoryResponse>> =
-        ResponseEntity.ok(categoryService.findAll())
+    fun listAll(
+        @PageableDefault(size = 10, sort = ["description"]) pageable: Pageable
+    ): ResponseEntity<Page<CategoryResponse>> =
+        ResponseEntity.ok(categoryService.findAll(pageable))
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long): ResponseEntity<CategoryResponse> =

@@ -26,26 +26,30 @@ class TaskServiceTest {
     fun `findAll should return all tasks when categoryId is null`() {
         val category = Category(1, "Trabalho")
         val tasks = listOf(Task(1, "Tarefa 1", null, category, LocalDateTime.now()))
-        every { taskRepository.findAll() } returns tasks
+        val pageable = org.springframework.data.domain.Pageable.unpaged()
+        val page = org.springframework.data.domain.PageImpl(tasks)
+        every { taskRepository.findAll(pageable) } returns page
 
-        val result = taskService.findAll(null)
+        val result = taskService.findAll(null, pageable)
 
-        assertEquals(1, result.size)
-        assertEquals("Tarefa 1", result[0].title)
-        verify { taskRepository.findAll() }
+        assertEquals(1, result.totalElements)
+        assertEquals("Tarefa 1", result.content[0].title)
+        verify { taskRepository.findAll(pageable) }
     }
 
     @Test
     fun `findAll should return filtered tasks when categoryId is provided`() {
         val category = Category(1, "Trabalho")
         val tasks = listOf(Task(1, "Tarefa 1", null, category, LocalDateTime.now()))
-        every { taskRepository.findByCategoryId(1) } returns tasks
+        val pageable = org.springframework.data.domain.Pageable.unpaged()
+        val page = org.springframework.data.domain.PageImpl(tasks)
+        every { taskRepository.findByCategoryId(1, pageable) } returns page
 
-        val result = taskService.findAll(1)
+        val result = taskService.findAll(1, pageable)
 
-        assertEquals(1, result.size)
-        assertEquals("Tarefa 1", result[0].title)
-        verify { taskRepository.findByCategoryId(1) }
+        assertEquals(1, result.totalElements)
+        assertEquals("Tarefa 1", result.content[0].title)
+        verify { taskRepository.findByCategoryId(1, pageable) }
     }
 
     @Test

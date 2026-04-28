@@ -10,6 +10,10 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
+
 @RestController
 @RequestMapping("/api/tasks")
 @SecurityRequirement(name = "bearerAuth")
@@ -17,9 +21,10 @@ class TaskController(private val taskService: TaskService) {
 
     @GetMapping
     fun listAll(
-        @RequestParam(required = false) categoryId: Long?
-    ): ResponseEntity<List<TaskResponse>> {
-        return ResponseEntity.ok(taskService.findAll(categoryId))
+        @RequestParam(required = false) categoryId: Long?,
+        @PageableDefault(size = 10, sort = ["dateTime"]) pageable: Pageable
+    ): ResponseEntity<Page<TaskResponse>> {
+        return ResponseEntity.ok(taskService.findAll(categoryId, pageable))
     }
 
     @GetMapping("/{id}")
