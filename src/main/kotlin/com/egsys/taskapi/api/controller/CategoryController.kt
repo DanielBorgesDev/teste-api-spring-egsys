@@ -3,6 +3,7 @@ package com.egsys.taskapi.api.controller
 import com.egsys.taskapi.application.dto.CategoryRequest
 import com.egsys.taskapi.application.dto.CategoryResponse
 import com.egsys.taskapi.application.service.CategoryService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping("/api/categories")
+@SecurityRequirement(name = "bearerAuth")
 class CategoryController(private val categoryService: CategoryService) {
 
     @GetMapping

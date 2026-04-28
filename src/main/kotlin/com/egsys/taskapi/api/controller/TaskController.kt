@@ -3,6 +3,7 @@ package com.egsys.taskapi.api.controller
 import com.egsys.taskapi.application.dto.TaskRequest
 import com.egsys.taskapi.application.dto.TaskResponse
 import com.egsys.taskapi.application.service.TaskService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping("/api/tasks")
+@SecurityRequirement(name = "bearerAuth")
 class TaskController(private val taskService: TaskService) {
 
     @GetMapping
