@@ -2,10 +2,89 @@
 	"info": {
 		"_postman_id": "8b5f4233-036f-481c-bfc9-f5baece00864",
 		"name": "Task API - Egsys",
-		"description": "Coleção para teste da API de Gerenciamento de Tarefas desenvolvida em Spring Boot (Kotlin).",
+		"description": "Coleção para teste da API de Gerenciamento de Tarefas com autenticação JWT.\n\n**Fluxo de uso:**\n1. Execute 'Auth > Login' — o token JWT é salvo automaticamente na variável {{token}}\n2. Todos os demais endpoints já usam esse token via Authorization header\n\n**Usuário padrão (criado pelo DataSeeder):**\n- E-mail: admin@egsys.com\n- Senha: admin123",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Daniel\",\n    \"email\": \"daniel@egsys.com\",\n    \"password\": \"senha123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "register"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"if (json.token) {",
+									"    pm.collectionVariables.set('token', json.token);",
+									"    console.log('Token salvo:', json.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@egsys.com\",\n    \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();",
+									"if (json.token) {",
+									"    pm.collectionVariables.set('token', json.token);",
+									"    console.log('Token salvo automaticamente!');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Categories",
 			"item": [
@@ -13,16 +92,16 @@
 					"name": "List All Categories",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/categories",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"categories"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories"]
 						}
 					},
 					"response": []
@@ -31,17 +110,16 @@
 					"name": "Get Category by ID",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/categories/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"categories",
-								"1"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories", "1"]
 						}
 					},
 					"response": []
@@ -50,7 +128,12 @@
 					"name": "Create Category",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"description\": \"Trabalho\"\n}",
@@ -62,13 +145,8 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/categories",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"categories"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories"]
 						}
 					},
 					"response": []
@@ -77,7 +155,12 @@
 					"name": "Update Category",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"description\": \"Trabalho (Urgente)\"\n}",
@@ -89,14 +172,8 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/categories/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"categories",
-								"1"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories", "1"]
 						}
 					},
 					"response": []
@@ -105,17 +182,16 @@
 					"name": "Delete Category",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/categories/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"categories",
-								"1"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "categories", "1"]
 						}
 					},
 					"response": []
@@ -129,16 +205,16 @@
 					"name": "List All Tasks",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/tasks",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"tasks"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tasks"]
 						}
 					},
 					"response": []
@@ -147,16 +223,16 @@
 					"name": "Filter Tasks by Category",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/tasks?categoryId=1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"tasks"
-							],
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tasks"],
 							"query": [
 								{
 									"key": "categoryId",
@@ -171,17 +247,16 @@
 					"name": "Get Task by ID",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/tasks/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"tasks",
-								"1"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tasks", "1"]
 						}
 					},
 					"response": []
@@ -190,7 +265,12 @@
 					"name": "Create Task",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"title\": \"Finalizar relatório trimestral\",\n    \"description\": \"Revisar os números do Q1 e gerar PDF\",\n    \"categoryId\": 1,\n    \"dateTime\": \"2025-06-15T10:30:00\"\n}",
@@ -202,13 +282,8 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/tasks",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"tasks"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tasks"]
 						}
 					},
 					"response": []
@@ -217,7 +292,12 @@
 					"name": "Update Task",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"title\": \"Finalizar relatório trimestral - EDITADO\",\n    \"description\": \"Descrição atualizada\",\n    \"categoryId\": 1,\n    \"dateTime\": \"2025-06-20T14:00:00\"\n}",
@@ -229,14 +309,8 @@
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/tasks/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"tasks",
-								"1"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tasks", "1"]
 						}
 					},
 					"response": []
@@ -245,17 +319,16 @@
 					"name": "Delete Task",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/api/tasks/1",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"tasks",
-								"1"
-							]
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tasks", "1"]
 						}
 					},
 					"response": []
@@ -267,6 +340,11 @@
 		{
 			"key": "baseUrl",
 			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
 			"type": "string"
 		}
 	]

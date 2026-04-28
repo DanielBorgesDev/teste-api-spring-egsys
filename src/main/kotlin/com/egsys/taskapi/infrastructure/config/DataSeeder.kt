@@ -1,12 +1,16 @@
 package com.egsys.taskapi.infrastructure.config
 
 import com.egsys.taskapi.domain.model.Category
+import com.egsys.taskapi.domain.model.Role
 import com.egsys.taskapi.domain.model.Task
+import com.egsys.taskapi.domain.model.User
 import com.egsys.taskapi.domain.repository.CategoryRepository
 import com.egsys.taskapi.domain.repository.TaskRepository
+import com.egsys.taskapi.domain.repository.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
@@ -17,13 +21,33 @@ import java.time.LocalDateTime
 @Component
 class DataSeeder(
     private val categoryRepository: CategoryRepository,
-    private val taskRepository: TaskRepository
+    private val taskRepository: TaskRepository,
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder
 ) : ApplicationRunner {
 
     private val log = LoggerFactory.getLogger(DataSeeder::class.java)
 
     override fun run(args: ApplicationArguments) {
         log.info("Iniciando seed de dados...")
+        seedUsers()
+        seedCategories()
+    }
+
+    private fun seedUsers() {
+        if (userRepository.count() > 0) return
+        userRepository.save(
+            User(
+                name = "Admin",
+                email = "admin@egsys.com",
+                password = passwordEncoder.encode("admin123"),
+                role = Role.ADMIN
+            )
+        )
+        log.info("Usuário admin criado: admin@egsys.com / admin123")
+    }
+
+    private fun seedCategories() {
 
         val categories = categoryRepository.saveAll(
             listOf(

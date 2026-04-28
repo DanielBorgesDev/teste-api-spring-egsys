@@ -24,3 +24,8 @@ logging:
   level:
     com.egsys.taskapi: DEBUG
     org.hibernate.SQL: DEBUG
+
+security:
+  jwt:
+    secret: dGVzdGUtYXBpLWVnc3lzLWp3dC1zZWNyZXQta2V5LTI1NmJpdHMhISE=
+    expiration: 86400000
